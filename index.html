@@ -5,19 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Time Counter</title>
     <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            text-align: center;
+        }
+        .counter-container {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
         #counter {
-            font-family: Arial, sans-serif;
-            font-size: 24px;
-            color: #333;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <div>
-        <h1>Time since November 18, 2022:</h1>
+    <div class="counter-container">
+        <h1>M and T, always and forever ♡:</h1>
         <div id="counter">Loading...</div>
     </div>
 
-    <script src="counter.js"></script>
+    <script>
+        // Function to update the counter
+        function updateCounter() {
+            let startDate = new Date('2022-11-18'); // Original start date
+            startDate.setHours(startDate.getHours() - 17); // Offset by 17 hours
+
+            const now = new Date(); // Current date
+            const diff = now - startDate; // Difference in milliseconds
+
+            // Calculate time units
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            // Update the counter element
+            document.getElementById('counter').textContent =
+                `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+        }
+
+        // Start updating the counter every second
+        setInterval(updateCounter, 1000);
+    </script>
 </body>
 </html>
